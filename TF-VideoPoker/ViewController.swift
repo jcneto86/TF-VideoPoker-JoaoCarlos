@@ -57,6 +57,7 @@ class ViewController: UIViewController {
     var chances = 2
     //---
     let pokerHands = PokerHands()
+    let saveScore = UserDefaultsManager()
     //---
     var handToAnalyse = [(0, ""), (0, ""), (0, ""), (0, ""), (0, "")]
     //---
@@ -86,6 +87,14 @@ class ViewController: UIViewController {
         //---
         createDeckOfCards()
         //---
+        //----------------------
+        if !saveScore.doesKeyExist(theKey: "credits") {
+            saveScore.setKey(theValue: 2000 as AnyObject, theKey: "credits")
+        } else {
+            credits = saveScore.getValue(theKey: "credits") as! Int
+            creditsLabel.text = "Crédits: \(credits)"
+        }
+        //----------------------
     }
     //----------------------//----------------------
     func createDeckOfCards() {
@@ -218,8 +227,10 @@ class ViewController: UIViewController {
             handToAnalyse = [(0, ""), (0, ""), (0, ""), (0, ""), (0, "")]
             chances = 2
             bet = 0
-            betLabel.text = "MISE : 0"
+            betLabel.text = "Mise: 0"
         }
+        credits = saveScore.getValue(theKey: "credits") as! Int
+        creditsLabel.text = "Crédits: \(credits)"
         //---
     }
     //----------------------//----------------------
@@ -308,7 +319,7 @@ class ViewController: UIViewController {
     func calculateHand(times: Int, handToDisplay: String) {
         credits += (times * bet)
         tempLabel.text = handToDisplay
-        creditsLabel.text = "CRÉDITS: \(credits)"
+        creditsLabel.text = "Crédits: \(credits)"
     }
     //----------------------//----------------------
     @IBAction func cardsToHold(_ sender: UIButton) {
@@ -354,9 +365,9 @@ class ViewController: UIViewController {
         //---
         if sender.tag == 1000 {
             bet = credits
-            betLabel.text = "MISE : \(bet)"
+            betLabel.text = "Mise : \(bet)"
             credits = 0
-            creditsLabel.text = "CRÉDITS : \(credits)"
+            creditsLabel.text = "Crédits: \(credits)"
             dealButton.alpha = 1.0
             resetBackOfCards()
             return
@@ -367,8 +378,8 @@ class ViewController: UIViewController {
         if credits >= theBet {
             bet += theBet
             credits -= theBet
-            betLabel.text = "MISE : \(bet)"
-            creditsLabel.text = "CRÉDITS : \(credits)"
+            betLabel.text = "Mise : \(bet)"
+            creditsLabel.text = "Crédits: \(credits)"
             dealButton.alpha = 1.0
         }
         //---
