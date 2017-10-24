@@ -11,80 +11,85 @@ import UIKit
 //----------------------//----------------------
 class ViewController: UIViewController {
     @IBOutlet weak var tempLabel: UILabel!
-    //---
+    //--- Référence pour les UIImageView qui afficheront des images des cartes
     @IBOutlet weak var slot_1: UIImageView!
     @IBOutlet weak var slot_2: UIImageView!
     @IBOutlet weak var slot_3: UIImageView!
     @IBOutlet weak var slot_4: UIImageView!
     @IBOutlet weak var slot_5: UIImageView!
-    //---
+    //--- Référence pour les UIImage qui vont créeront l'animation des cartes
     var card_blur_1: UIImage!
     var card_blur_2: UIImage!
     var card_blur_3: UIImage!
     var card_blur_4: UIImage!
     var card_blur_5: UIImage!
-    //---
+    //--- Référence pour les UIImage qui afficheront l'arrière-plan
     @IBOutlet weak var bg_1: UIView!
     @IBOutlet weak var bg_2: UIView!
     @IBOutlet weak var bg_3: UIView!
     @IBOutlet weak var bg_4: UIView!
     @IBOutlet weak var bg_5: UIView!
-    //---
+    //--- Référence pour les UILabel qui afficheront le symbole d'un cadenas qui est caché
     @IBOutlet weak var keep_1: UILabel!
     @IBOutlet weak var keep_2: UILabel!
     @IBOutlet weak var keep_3: UILabel!
     @IBOutlet weak var keep_4: UILabel!
     @IBOutlet weak var keep_5: UILabel!
-    //---
+    //--- Boutom pour dristribuer les cartes
     @IBOutlet weak var dealButton: UIButton!
+    //--- Label qui va achiffier le crédit
     @IBOutlet weak var creditsLabel: UILabel!
+    //--- Label qui va achiffier le mise
     @IBOutlet weak var betLabel: UILabel!
-    //---
+    //--- Un tableau qui vas représenté les images sur UIImage
     var arrOfCardImages: [UIImage]!
-    //---
+    //--- Un tableau qui vas représenté les cartes sur UIImageView
     var arrOfSlotImageViews: [UIImageView]!
-    //---
+    //--- Un tableau "tuple" qui vas représenté le jeu des cartes au complat
     var deckOfCards = [(Int, String)]()
-    //---
+    //--- Un tableau qui vas représenté l'arrière-plan sur les UIView
     var arrOfBackgrounds: [UIView]!
-    //---
+    //--- Un tableau qui vas représenté les Labels sur les UILabel
     var arrOfKeepLabels: [UILabel]!
-    //---
+    //--- Variable qui contrôle le blocus la sélection des cartes
     var permissionToSelectCards = false
+    //--- Variable qui contrôle la quantité de mise
     var bet = 0
+    //--- Variable qui contrôle la quantité de crédit
     var credits = 2000
-    //---
+    //--- Variable qui contrôle le départ, permettant un cycle de jeu approprié
     var chances = 2
-    //---
+    //--- Classe qui compte les règles du jeu
     let pokerHands = PokerHands()
+    //--- Classe qui perme le sauvegarde de crédit
     let saveScore = UserDefaultsManager()
-    //---
+    //--- Tableau qui garde le carte pour que le class pokerHends puisse analyser
     var handToAnalyse = [(0, ""), (0, ""), (0, ""), (0, ""), (0, "")]
     //---
     var theHand = [(Int, String)]()
     //----------------------//----------------------
     override func viewDidLoad() {
-        //---
+        //--- Initialisé le document
         super.viewDidLoad()
-        //---
+        //--- Applelé la function createCardObjectsFromImages qui affiche les images pour crée l'animation
         createCardObjectsFromImages()
-        //---
+        //--- Applelé la function fillUpArrays qui remplit les tableau avec les objet
         fillUpArrays()
-        //---
-        prepareAnimations(duration: 0.5,
-                          repeating: 5,
+        //--- Applelé la function prepareAnimations avec les argument donne qui vat animé les cartes dans le tableau arrOfCardImages
+        prepareAnimations(duration: 1,
+                          repeating: 2,
                           cards: arrOfCardImages)
-        //---
+        //--- Applelé la function stylizeSlotImageViews avec les argument donne qui donne de style à les UIImageView. Il change la bordure et couleur l'arrière-plan
         stylizeSlotImageViews(radius: 10,
                               borderWidth: 0.5,
                               borderColor: UIColor.black.cgColor,
                               bgColor: UIColor.yellow.cgColor)
-        //---
+        //--- Applelé la function stylizeBackgroundViews avec les argument donne qui donne de style à les UIImage. Il change les bordure, couleur des bordures et radius de la View
         stylizeBackgroundViews(radius: 10,
                                borderWidth: nil,
                                borderColor: UIColor.black.cgColor,
                                bgColor: nil)
-        //---
+        //--- Applelé la function createDeckOfCards qui remplit le tableau deckOfCards avec les 52 cartes
         createDeckOfCards()
         //---
         //----------------------
@@ -106,7 +111,7 @@ class ViewController: UIViewController {
             }
         }
     }
-    //----------------------//----------------------
+    //--- Donné de style à les UIImage. Il change la bordure, coulor et l'arrière-plan
     func stylizeSlotImageViews(radius r: CGFloat,
                                borderWidth w: CGFloat,
                                borderColor c: CGColor,
@@ -132,7 +137,7 @@ class ViewController: UIViewController {
             bgView.layer.backgroundColor = g
         }
     }
-    //----------------------//----------------------
+    //--- Remplit les tableau avec les objet
     func fillUpArrays() {
         arrOfCardImages = [card_blur_1, card_blur_2, card_blur_3, card_blur_4,
                            card_blur_5]
@@ -140,7 +145,7 @@ class ViewController: UIViewController {
         arrOfBackgrounds = [bg_1, bg_2, bg_3, bg_4, bg_5]
         arrOfKeepLabels = [keep_1, keep_2, keep_3, keep_4, keep_5]
     }
-    //----------------------//----------------------
+    //--- Affiché les images pour crée l'animation ***
     func createCardObjectsFromImages() {
         card_blur_1 = UIImage(named: "blur_1.png")
         card_blur_2 = UIImage(named: "blur_2.png")
@@ -148,7 +153,7 @@ class ViewController: UIViewController {
         card_blur_4 = UIImage(named: "blur_4.png")
         card_blur_5 = UIImage(named: "blur_4.png")
     }
-    //----------------------//----------------------
+    //--- Animé les cartes dans le tableau arrOfCardImages
     func prepareAnimations(duration d: Double,
                            repeating r: Int,
                            cards c: [UIImage]) {
@@ -196,7 +201,7 @@ class ViewController: UIViewController {
             }
         }
         //---
-        Timer.scheduledTimer(timeInterval: 2.60,
+        Timer.scheduledTimer(timeInterval: 2.1,
                              target: self,
                              selector: #selector(displayRandomCards),
                              userInfo: nil,
