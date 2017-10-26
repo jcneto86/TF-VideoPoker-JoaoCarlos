@@ -22,6 +22,11 @@ class ViewController: UIViewController {
     var card_blur_3: UIImage!
     var card_blur_4: UIImage!
     var card_blur_5: UIImage!
+    //--- Référence à les boutons pour créé la function gameover
+    @IBOutlet weak var reset: UIButton!
+    @IBOutlet weak var betTout: UIButton!
+    @IBOutlet weak var bet100: UIButton!
+    @IBOutlet weak var bet25: UIButton!
     //--- Référence pour les UIImage qui afficheront l'arrière-plan
     @IBOutlet weak var bg_1: UIView!
     @IBOutlet weak var bg_2: UIView!
@@ -55,7 +60,7 @@ class ViewController: UIViewController {
     //--- Variable qui contrôle la quantité de mise
     var bet = 0
     //--- Variable qui contrôle la quantité de crédit
-    var credits = 2000
+    var credits = 0
     //--- Variable qui contrôle le départ, permettant un cycle de jeu approprié
     var chances = 2
     //--- Classe qui compte les règles du jeu
@@ -64,43 +69,40 @@ class ViewController: UIViewController {
     let saveScore = UserDefaultsManager()
     //--- Tableau qui garde le carte pour que le class pokerHends puisse analyser
     var handToAnalyse = [(0, ""), (0, ""), (0, ""), (0, ""), (0, "")]
-    //---
+    //--- Un tableau qui vas représenté la main
     var theHand = [(Int, String)]()
     //----------------------//----------------------
     override func viewDidLoad() {
-        //--- Initialisé le document
-        super.viewDidLoad()
-        //--- Applelé la function createCardObjectsFromImages qui affiche les images pour crée l'animation
-        createCardObjectsFromImages()
-        //--- Applelé la function fillUpArrays qui remplit les tableau avec les objet
-        fillUpArrays()
-        //--- Applelé la function prepareAnimations avec les argument donne qui vat animé les cartes dans le tableau arrOfCardImages
-        prepareAnimations(duration: 1,
-                          repeating: 2,
-                          cards: arrOfCardImages)
-        //--- Applelé la function stylizeSlotImageViews avec les argument donne qui donne de style à les UIImageView. Il change la bordure et couleur l'arrière-plan
-        stylizeSlotImageViews(radius: 10,
-                              borderWidth: 0.5,
-                              borderColor: UIColor.black.cgColor,
-                              bgColor: UIColor.yellow.cgColor)
-        //--- Applelé la function stylizeBackgroundViews avec les argument donne qui donne de style à les UIImage. Il change les bordure, couleur des bordures et radius de la View
-        stylizeBackgroundViews(radius: 10,
-                               borderWidth: nil,
-                               borderColor: UIColor.black.cgColor,
-                               bgColor: nil)
-        //--- Applelé la function createDeckOfCards qui remplit le tableau deckOfCards avec les 52 cartes
-        createDeckOfCards()
-        //---
-        //----------------------
-        if !saveScore.doesKeyExist(theKey: "credits") {
+        if saveScore.doesKeyExist(theKey: "credits") == false {
             saveScore.setKey(theValue: 2000 as AnyObject, theKey: "credits")
         } else {
             credits = saveScore.getValue(theKey: "credits") as! Int
             creditsLabel.text = "Crédits: \(credits)"
         }
-        //----------------------
+        //--- Initialisé le document
+        super.viewDidLoad()
+        //--- Appelé la function createCardObjectsFromImages qui affiche les images pour crée l'animation
+        createCardObjectsFromImages()
+        //--- Appelé la function fillUpArrays qui remplit les tableau avec les objet
+        fillUpArrays()
+        //--- Appelé la function prepareAnimations avec les argument donne qui vat animé les cartes dans le tableau arrOfCardImages
+        prepareAnimations(duration: 1,
+                          repeating: 2,
+                          cards: arrOfCardImages)
+        //--- Appelé la function stylizeSlotImageViews avec les argument donne qui donne de style à les UIImageView. Il change la bordure et couleur l'arrière-plan
+        stylizeSlotImageViews(radius: 10,
+                              borderWidth: 0.5,
+                              borderColor: UIColor.black.cgColor,
+                              bgColor: UIColor.yellow.cgColor)
+        //--- Appelé la function stylizeBackgroundViews avec les argument donne qui donne de style à les UIImage. Il change les bordure, couleur des bordures et radius de la View
+        stylizeBackgroundViews(radius: 10,
+                               borderWidth: nil,
+                               borderColor: UIColor.black.cgColor,
+                               bgColor: nil)
+        //--- Appelé la function createDeckOfCards qui remplit le tableau deckOfCards avec les 52 cartes
+        createDeckOfCards()
     }
-    //----------------------//----------------------
+    //--- Function qui va ajouté les cartes au tabeau deckOfCards
     func createDeckOfCards() {
         deckOfCards = [(Int, String)]()
         for a in 0...3 {
@@ -123,7 +125,7 @@ class ViewController: UIViewController {
             slotImageView.layer.backgroundColor = g
         }
     }
-    //----------------------//----------------------
+    //--- Function qui va stylizé bgView
     func stylizeBackgroundViews(radius r: CGFloat,
                                 borderWidth w: CGFloat?,
                                 borderColor c: CGColor,
@@ -175,13 +177,11 @@ class ViewController: UIViewController {
     }
     //----------------------//----------------------
     @IBAction func play(_ sender: UIButton) {
-        //---
         if chances == 0 || dealButton.alpha == 0.5 {
             return
         } else {
             chances = chances - 1
         }
-        //---
         var allSelected = true
         for slotAnimation in arrOfSlotImageViews {
             if slotAnimation.layer.borderWidth != 1.0 {
@@ -193,13 +193,11 @@ class ViewController: UIViewController {
             displayRandomCards()
             return
         }
-        //---
         for slotAnimation in arrOfSlotImageViews {
             if slotAnimation.layer.borderWidth != 1.0 {
                 slotAnimation.startAnimating()
             }
         }
-        //---
         Timer.scheduledTimer(timeInterval: 2.1,
                              target: self,
                              selector: #selector(displayRandomCards),
@@ -208,21 +206,14 @@ class ViewController: UIViewController {
     }
     //----------------------//----------------------
     @objc func displayRandomCards() {
-        //---
         theHand = returnRandomHand()
-        //---
         let arrOfCards = createCards(theHand: theHand)
-        //---
         displayCards(arrOfCards: arrOfCards)
-        //---
         permissionToSelectCards = true
-        //---
         prepareForNextHand()
-        //---
     }
     //----------------------//----------------------
     func prepareForNextHand() {
-        //---
         if chances == 0 {
             permissionToSelectCards = false
             dealButton.alpha = 0.5
@@ -233,9 +224,6 @@ class ViewController: UIViewController {
             bet = 0
             betLabel.text = "Mise: 0"
         }
-        credits = saveScore.getValue(theKey: "credits") as! Int
-        creditsLabel.text = "Crédits: \(credits)"
-        //---
     }
     //----------------------//----------------------
     func displayCards(arrOfCards: [String]) {
@@ -243,22 +231,17 @@ class ViewController: UIViewController {
         var counter = 0
         for slotAnimation in arrOfSlotImageViews {
             if slotAnimation.layer.borderWidth != 1 {
-                
                 if chances == 0 {
                     handToAnalyse = removeEmptySlotsAndReturnArray()
                     handToAnalyse.append(theHand[counter])
                 }
-                //---
-                
                 slotAnimation.image = UIImage(named: arrOfCards[counter])
             }
             counter = counter + 1
         }
-        //---
         if chances == 0 {
             verifyHand(hand: handToAnalyse)
         }
-        //---
     }
     //----------------------//----------------------
     func removeEmptySlotsAndReturnArray() -> [(Int, String)] {
@@ -272,28 +255,22 @@ class ViewController: UIViewController {
     }
     //----------------------//----------------------
     func createCards(theHand: [(Int, String)]) -> [String] {
-        //---
         let card_1 = "\(theHand[0].0)\(theHand[0].1).png"
         let card_2 = "\(theHand[1].0)\(theHand[1].1).png"
         let card_3 = "\(theHand[2].0)\(theHand[2].1).png"
         let card_4 = "\(theHand[3].0)\(theHand[3].1).png"
         let card_5 = "\(theHand[4].0)\(theHand[4].1).png"
         return [card_1, card_2, card_3, card_4, card_5]
-        //---
     }
     //----------------------//----------------------
     func returnRandomHand() -> [(Int, String)] {
-        //---
         var arrToReturn = [(Int, String)]()
-        //---
         for _ in 1...5 {
             let randomIndex = Int(arc4random_uniform(UInt32(deckOfCards.count)))
             arrToReturn.append(deckOfCards[randomIndex])
             deckOfCards.remove(at: randomIndex)
         }
-        //---
         return arrToReturn
-        //---
     }
     //----------------------//----------------------
     func verifyHand(hand: [(Int, String)]) {
@@ -324,20 +301,18 @@ class ViewController: UIViewController {
         credits += (times * bet)
         tempLabel.text = handToDisplay
         creditsLabel.text = "Crédits: \(credits)"
+        gameover()
     }
     //----------------------//----------------------
     @IBAction func cardsToHold(_ sender: UIButton) {
-        //---
         if !permissionToSelectCards {
             return
         }
-        //---
         if arrOfBackgrounds[sender.tag].layer.borderWidth == 0.5 {
             arrOfSlotImageViews[sender.tag].layer.borderWidth = 0.5
             arrOfBackgrounds[sender.tag].layer.borderWidth = 0.0
             arrOfBackgrounds[sender.tag].layer.backgroundColor = nil
             arrOfKeepLabels[sender.tag].isHidden = true
-            //---
             manageSelectedCards(theTag: sender.tag, shouldAdd: false)
         } else {
             arrOfSlotImageViews[sender.tag].layer.borderWidth = 1.0
@@ -346,7 +321,6 @@ class ViewController: UIViewController {
             arrOfBackgrounds[sender.tag].layer.backgroundColor = UIColor(red: 0.0,
                                                                          green: 0.0, blue: 1.0, alpha: 0.5).cgColor
             arrOfKeepLabels[sender.tag].isHidden = false
-            //---
             manageSelectedCards(theTag: sender.tag, shouldAdd: true)
         }
     }
@@ -360,13 +334,10 @@ class ViewController: UIViewController {
     }
     //----------------------//----------------------
     @IBAction func betButtons(_ sender: UIButton) {
-        //---
         if chances <= 1 {
             return
         }
-        //---
         tempLabel.text = ""
-        //---
         if sender.tag == 1000 {
             bet = credits
             betLabel.text = "Mise : \(bet)"
@@ -376,9 +347,7 @@ class ViewController: UIViewController {
             resetBackOfCards()
             return
         }
-        //---
         let theBet = sender.tag
-        //---
         if credits >= theBet {
             bet += theBet
             credits -= theBet
@@ -386,9 +355,7 @@ class ViewController: UIViewController {
             creditsLabel.text = "Crédits: \(credits)"
             dealButton.alpha = 1.0
         }
-        //---
         resetBackOfCards()
-        //---
     }
     //----------------------//----------------------
     func resetBackOfCards() {
@@ -398,23 +365,39 @@ class ViewController: UIViewController {
     }
     //----------------------//----------------------
     func resetCards() {
-        //---
         for index in 0...4 {
             arrOfSlotImageViews[index].layer.borderWidth = 0.5
             arrOfBackgrounds[index].layer.borderWidth = 0.0
             arrOfBackgrounds[index].layer.backgroundColor = nil
             arrOfKeepLabels[index].isHidden = true
         }
-        //---
         chances = 2
-        //---
     }
-    //----------------------//----------------------
+    //--- Function qui valide si les crédits du  joueur pour définir s'ils pour continue
     func gameover() {
         if credits == 0 {
-            
+            bet25.alpha = 0.5
+            bet100.alpha = 0.5
+            betTout.alpha = 0.5
+            dealButton.alpha = 0.5
+            reset.alpha = 1
+        }
+    }
+    //--- Reset du jeu. Vide les tableaux, ajoute crédits et habilitent les boutons
+    @IBAction func restart(_ sender: UIButton) {
+        if reset.alpha == 0.5 {
+            return
+        }
+        if reset.alpha == 1 {
+            prepareForNextHand()
+            resetBackOfCards()
+            credits = 2000
+            creditsLabel.text = "Crédits : \(credits)"
+            bet25.alpha = 1
+            bet100.alpha = 1
+            betTout.alpha = 1
+            reset.alpha = 0.5
         }
     }
 }
 //----------------------//----------------------
-

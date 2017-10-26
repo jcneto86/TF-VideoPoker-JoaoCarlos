@@ -169,6 +169,9 @@
                                 <state key="normal" title="Recommencer" backgroundImage="buttom.png">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="restart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lub-ay-yvW"/>
+                                </connections>
                             </button>
                             <button opaque="NO" tag="25" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="94A-go-KVs">
                                 <rect key="frame" x="151" y="325" width="105" height="30"/>
@@ -215,7 +218,7 @@
                                 <rect key="frame" x="400" y="17" width="267" height="116.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mise: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dq-1w-VlA">
-                                        <rect key="frame" x="33.5" y="30" width="200.5" height="22"/>
+                                        <rect key="frame" x="15" y="34" width="237.5" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="9dq-1w-VlA" secondAttribute="height" multiplier="137:15" id="6c7-wg-t9p"/>
                                         </constraints>
@@ -224,7 +227,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bonne Chance..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUq-5a-iKI">
-                                        <rect key="frame" x="33.5" y="58" width="200.5" height="22"/>
+                                        <rect key="frame" x="15" y="62" width="237.5" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="tUq-5a-iKI" secondAttribute="height" multiplier="137:15" id="3NF-8c-AOY"/>
                                         </constraints>
@@ -233,7 +236,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crédits: 2000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvw-Wz-Urm">
-                                        <rect key="frame" x="33.5" y="8" width="200.5" height="22"/>
+                                        <rect key="frame" x="15" y="8" width="237.5" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="jvw-Wz-Urm" secondAttribute="height" multiplier="137:15" id="eQ9-JV-oUf"/>
                                         </constraints>
@@ -272,7 +275,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="bet100" destination="7Bb-h9-Eek" id="tq2-uq-rGC"/>
+                        <outlet property="bet25" destination="94A-go-KVs" id="rIn-dU-L9d"/>
                         <outlet property="betLabel" destination="9dq-1w-VlA" id="iB9-wi-dNw"/>
+                        <outlet property="betTout" destination="khN-9F-Fls" id="FKQ-se-czr"/>
                         <outlet property="bg_1" destination="3ob-Hh-fLA" id="OFM-fM-qWx"/>
                         <outlet property="bg_2" destination="ZsR-9L-WWI" id="ujs-Ow-7y8"/>
                         <outlet property="bg_3" destination="uJr-hd-zB8" id="VBW-sv-niq"/>
@@ -285,6 +291,7 @@
                         <outlet property="keep_3" destination="chU-bq-VBY" id="4eo-wO-f4l"/>
                         <outlet property="keep_4" destination="M5y-Ga-rjo" id="Ugb-H3-U8R"/>
                         <outlet property="keep_5" destination="pAR-Sc-ae7" id="15O-8U-bM9"/>
+                        <outlet property="reset" destination="uct-sx-hOU" id="4vY-vM-W3p"/>
                         <outlet property="slot_1" destination="e8M-d8-egh" id="jQ6-Ky-8mj"/>
                         <outlet property="slot_2" destination="0VH-Cl-dT7" id="fTY-EY-eXR"/>
                         <outlet property="slot_3" destination="C1o-RY-l1J" id="vbm-9D-cqi"/>

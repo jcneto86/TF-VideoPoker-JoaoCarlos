@@ -113,6 +113,7 @@
 		52CDA6B61F953D7E00E1AFAF /* JosefinSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52CDA6AD1F953D7D00E1AFAF /* JosefinSans-Regular.ttf */; };
 		52CDA6B71F953D7E00E1AFAF /* JosefinSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52CDA6AE1F953D7D00E1AFAF /* JosefinSans-Light.ttf */; };
 		52CDA6C21F95476600E1AFAF /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52CDA6C11F95476600E1AFAF /* fontawesome-webfont.ttf */; };
+		52DACD8B1FA24DE700F6E820 /* Logo_LQ_280.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52DACD8A1FA24DE700F6E820 /* Logo_LQ_280.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -245,6 +246,7 @@
 		52CDA6AD1F953D7D00E1AFAF /* JosefinSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "JosefinSans-Regular.ttf"; path = "TF-VideoPoker/Fonts/josefinsans/JosefinSans-Regular.ttf"; sourceTree = SOURCE_ROOT; };
 		52CDA6AE1F953D7D00E1AFAF /* JosefinSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "JosefinSans-Light.ttf"; path = "TF-VideoPoker/Fonts/josefinsans/JosefinSans-Light.ttf"; sourceTree = SOURCE_ROOT; };
 		52CDA6C11F95476600E1AFAF /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "fontawesome-webfont.ttf"; path = "TF-VideoPoker/Fonts/fontawesome-webfont.ttf"; sourceTree = SOURCE_ROOT; };
+		52DACD8A1FA24DE700F6E820 /* Logo_LQ_280.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Logo_LQ_280.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -459,6 +461,7 @@
 		52CDA6321F953B7C00E1AFAF /* image */ = {
 			isa = PBXGroup;
 			children = (
+				52DACD8A1FA24DE700F6E820 /* Logo_LQ_280.jpg */,
 				52A19F911FA176400097CA31 /* logo.png */,
 				52A19F541FA1714A0097CA31 /* icon */,
 				526838C81F993A03006F5966 /* image */,
@@ -621,6 +624,7 @@
 				526839251F993A03006F5966 /* 12d.png in Resources */,
 				52A19F791FA1717D0097CA31 /* Icon-29.png in Resources */,
 				52A19F761FA1717D0097CA31 /* Icon-72.png in Resources */,
+				52DACD8B1FA24DE700F6E820 /* Logo_LQ_280.jpg in Resources */,
 				526839271F993A03006F5966 /* 10h.png in Resources */,
 				5268392A1F993A03006F5966 /* 3d.png in Resources */,
 				52A19F771FA1717D0097CA31 /* Icon-180.png in Resources */,
