@@ -5,7 +5,6 @@
 //  Created by João Carlos Fernandes Neto on 17-10-16.
 //  Copyright © 2017 João Carlos Fernandes Neto. All rights reserved.
 //
-
 //----------------------//----------------------
 import UIKit
 //----------------------//----------------------
@@ -234,8 +233,8 @@ class ViewController: UIViewController {
             bet = 0
             betLabel.text = "Mise: 0"
         }
-        credits = saveScore.getValue(theKey: "credits") as! Int
-        creditsLabel.text = "Crédits: \(credits)"
+        //credits = saveScore.getValue(theKey: "credits") as! Int
+        //creditsLabel.text = "Crédits: \(credits)"
         //---
     }
     //----------------------//----------------------
