@@ -233,8 +233,8 @@ class ViewController: UIViewController {
             bet = 0
             betLabel.text = "Mise: 0"
         }
-        //credits = saveScore.getValue(theKey: "credits") as! Int
-        //creditsLabel.text = "Crédits: \(credits)"
+        credits = saveScore.getValue(theKey: "credits") as! Int
+        creditsLabel.text = "Crédits: \(credits)"
         //---
     }
     //----------------------//----------------------
@@ -410,6 +410,11 @@ class ViewController: UIViewController {
         //---
     }
     //----------------------//----------------------
+    func gameover() {
+        if credits == 0 {
+            
+        }
+    }
 }
 //----------------------//----------------------
 
