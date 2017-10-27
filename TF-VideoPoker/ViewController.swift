@@ -175,7 +175,7 @@ class ViewController: UIViewController {
         }
         return arrToReturn
     }
-    //----------------------//----------------------
+    //--- Contréle
     @IBAction func play(_ sender: UIButton) {
         if chances == 0 || dealButton.alpha == 0.5 {
             return
@@ -204,7 +204,7 @@ class ViewController: UIViewController {
                              userInfo: nil,
                              repeats: false)
     }
-    //----------------------//----------------------
+    //--- Mettez les carte au hasard dans tableau returnRandomHand
     @objc func displayRandomCards() {
         theHand = returnRandomHand()
         let arrOfCards = createCards(theHand: theHand)
@@ -303,7 +303,7 @@ class ViewController: UIViewController {
         creditsLabel.text = "Crédits: \(credits)"
         gameover()
     }
-    //----------------------//----------------------
+    //--- Garder les cartes qui resteront
     @IBAction func cardsToHold(_ sender: UIButton) {
         if !permissionToSelectCards {
             return
@@ -332,7 +332,7 @@ class ViewController: UIViewController {
             handToAnalyse[theTag] = (0, "")
         }
     }
-    //----------------------//----------------------
+    //--- Contréle la mise du jeu
     @IBAction func betButtons(_ sender: UIButton) {
         if chances <= 1 {
             return
@@ -357,13 +357,13 @@ class ViewController: UIViewController {
         }
         resetBackOfCards()
     }
-    //----------------------//----------------------
+    //--- Function qui retourne UIImageView à l'image back.png
     func resetBackOfCards() {
         for back in arrOfSlotImageViews {
             back.image = UIImage(named: "back.png")
         }
     }
-    //----------------------//----------------------
+    //--- Function qui retourne à le style
     func resetCards() {
         for index in 0...4 {
             arrOfSlotImageViews[index].layer.borderWidth = 0.5
